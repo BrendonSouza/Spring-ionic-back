@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import com.cepedi.curso.domain.Categoria;
 import com.cepedi.curso.dto.CategoriaDTO;
 import com.cepedi.curso.services.CategoriaService;
@@ -37,7 +39,8 @@ public class CategoriaResource {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
+    Categoria obj = service.fromDTO(objDTO);
     obj = service.insert(obj);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
     return ResponseEntity.created(uri).build();
@@ -46,7 +49,8 @@ public class CategoriaResource {
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   // PathVariable serve para passar o que vier na url pra dentro do obj
-  public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+  public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id) {
+    Categoria obj = service.fromDTO(objDTO);
     obj.setId(id);
     obj = service.update(obj);
     return ResponseEntity.noContent().build();
@@ -69,8 +73,8 @@ public class CategoriaResource {
 
   }
 
+//paginação com parametros opcionais
   @RequestMapping(value = "/page", method = RequestMethod.GET)
-  // PathVariable serve para passar o que vier na url pra dentro do obj
   public ResponseEntity<Page<CategoriaDTO>> findPage(
     @RequestParam(value="page",defaultValue = "0") Integer page,
     @RequestParam(value="linesPerPage",defaultValue = "24")Integer linesPerPage, 
