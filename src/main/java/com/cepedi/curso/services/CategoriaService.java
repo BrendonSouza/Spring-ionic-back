@@ -4,9 +4,11 @@ import java.util.Optional;
 
 import com.cepedi.curso.domain.Categoria;
 import com.cepedi.curso.repositories.CategoriaRepository;
+import com.cepedi.curso.services.exceptions.DataIntegrityException;
 import com.cepedi.curso.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,4 +22,28 @@ public class CategoriaService {
     return obj.orElseThrow(() -> new ObjectNotFoundException(
         "Objeto não encontrado cara! Id: " + id + ", Tipo: " + Categoria.class.getName()));
   }
+
+  public Categoria insert(Categoria obj) {
+    obj.setId(null);
+    return repo.save(obj);
+  }
+
+  public Categoria update(Categoria obj) {
+    find(obj.getId());
+    return repo.save(obj);
+  }
+
+  public void delete(Integer id) {
+    find(id);
+    try {
+
+      repo.deleteById(id);
+    }
+    // quando for capturada a exceção do spring boot, lançaremos a nossa exceção
+    // personalizada
+    catch (DataIntegrityViolationException e) {
+      throw new DataIntegrityException("Não é possível excluir uma categoria que possua produtos cadastrados");
+    }
+  }
+
 }
