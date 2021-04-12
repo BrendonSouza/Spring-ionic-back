@@ -1,8 +1,11 @@
 package com.cepedi.curso.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cepedi.curso.domain.Categoria;
+import com.cepedi.curso.dto.CategoriaDTO;
 import com.cepedi.curso.services.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +55,16 @@ public class CategoriaResource {
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     service.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @RequestMapping(method = RequestMethod.GET)
+  // PathVariable serve para passar o que vier na url pra dentro do obj
+  public ResponseEntity<List<CategoriaDTO>> findAll() {
+
+    List<Categoria> list = service.findAll();
+    List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+    return ResponseEntity.ok().body(listDTO);
+
   }
 
 }

@@ -1,5 +1,6 @@
 package com.cepedi.curso.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.cepedi.curso.domain.Categoria;
@@ -44,6 +45,10 @@ public class CategoriaService {
     catch (DataIntegrityViolationException e) {
       throw new DataIntegrityException("Não é possível excluir uma categoria que possua produtos cadastrados");
     }
+  }
+
+  public List<Categoria> findAll() {
+    return repo.findAll();
   }
 
 }
