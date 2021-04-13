@@ -6,9 +6,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.cepedi.curso.domain.Cliente;
+import com.cepedi.curso.services.validations.ClienteUpdate;
 
 import org.hibernate.validator.constraints.Length;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
   /**
    *
