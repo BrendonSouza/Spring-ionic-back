@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class Cliente implements Serializable {
   private Integer tipo;
   // proteção contra serialização ciclica.
 
-  @OneToMany(mappedBy = "cliente")
+  @OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
   private List<Endereco> enderecos = new ArrayList<>();
 
   // como telefones é uma classe fraca totalmente dependente do cliente e nao
@@ -46,6 +47,7 @@ public class Cliente implements Serializable {
   private Set<String> telefones = new HashSet<>();
 
   @JsonIgnore
+  //que tal verificar se há pedidos conclusos e assim autorizar a deleção??
   @OneToMany(mappedBy = "cliente")
   private List<Pedido> pedidos = new ArrayList<>();
 

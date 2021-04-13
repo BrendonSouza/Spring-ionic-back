@@ -65,7 +65,7 @@ public class ClienteService {
     // quando for capturada a exceção do spring boot, lançaremos a nossa exceção
     // personalizada
     catch (DataIntegrityViolationException e) {
-      throw new DataIntegrityException("Não é possível excluir uma Cliente que possua pedidos e endereços cadastrados");
+      throw new DataIntegrityException("Não é possível excluir uma Cliente que possua pedidos cadastrados");
     }
   }
 
