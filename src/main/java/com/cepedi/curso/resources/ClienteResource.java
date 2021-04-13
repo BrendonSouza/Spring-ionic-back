@@ -1,5 +1,6 @@
 package com.cepedi.curso.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 
 import com.cepedi.curso.domain.Cliente;
 import com.cepedi.curso.dto.ClienteDTO;
+import com.cepedi.curso.dto.ClienteNewDTO;
 import com.cepedi.curso.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/clientes")
@@ -34,14 +37,14 @@ public class ClienteResource {
   }
 
 
-  // @RequestMapping(method = RequestMethod.POST)
-  // public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDTO) {
-  //   Cliente obj = service.fromDTO(objDTO);
-  //   obj = service.insert(obj);
-  //   URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-  //   return ResponseEntity.created(uri).build();
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+    Cliente obj = service.fromDTO(objDTO);
+    obj = service.insert(obj);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+    return ResponseEntity.created(uri).build();
 
-  // }
+   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   // PathVariable serve para passar o que vier na url pra dentro do obj
