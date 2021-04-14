@@ -2,11 +2,9 @@ package com.cepedi.curso.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
 
 import com.cepedi.curso.domain.Produto;
 
-import org.hibernate.validator.constraints.Length;
 
 public class ProdutoDTO implements Serializable {
   /**

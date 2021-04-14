@@ -156,7 +156,7 @@ public class CursoApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, p1.getPreco());
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 2, p1.getPreco());
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 1, p3.getPreco());
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, p2.getPreco());
 
