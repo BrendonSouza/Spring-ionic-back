@@ -14,6 +14,7 @@ import com.cepedi.curso.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PedidoService {
@@ -40,6 +41,7 @@ public class PedidoService {
 
   }
 
+  @Transactional
   public Pedido insert(Pedido obj){
     obj.setId(null);
     obj.setInstante(new Date());

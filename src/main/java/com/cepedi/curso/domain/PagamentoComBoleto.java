@@ -8,6 +8,7 @@ import com.cepedi.curso.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+//permite a instanciação de subclasses a partir de dados JSON
 @Entity
 @JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento {
