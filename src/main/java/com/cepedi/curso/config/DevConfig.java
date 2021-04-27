@@ -3,6 +3,8 @@ package com.cepedi.curso.config;
 import java.text.ParseException;
 
 import com.cepedi.curso.services.DBService;
+import com.cepedi.curso.services.EmailService;
+import com.cepedi.curso.services.SmtpEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,5 +31,10 @@ public class DevConfig {
     dbService.instantiateTestDatabase();
 
     return true;
+  }
+
+  @Bean
+  public EmailService EmailService(){
+    return new SmtpEmailService();
   }
 }
